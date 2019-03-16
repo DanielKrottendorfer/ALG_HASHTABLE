@@ -2,26 +2,28 @@
 #define HASHTABLE
 
 #include <iostream>
-#include <vector>
+#include <math.h>
+
+#include "Stock.hpp"
+using namespace std;
+
 
 class Hashtable
 {
+  public:
 
-  struct stock {
-    std::string name;
-    //Wertpapierkennnummer
-    std::string wkn;
-    //Kursdaten
-    std::vector<std::string> kd;
-  };
+    Hashtable(){};
+    bool add(Stock toAdd);
+    bool del(string toDel);
+    Stock *search(string toDel);
+    void printTable();
 
   private:
-    const int size = 1559;
-    stock values[1559];
-
-  public:
-    void addValue(std::string name,std::string wkn);
-    void printTable();
+    //capacity is gonna be 2003 in the final version
+    const int capacity = 23;
+    Stock tab[23];
+    int valueC = 0;
+    //ValueCount
 };
 
 #endif

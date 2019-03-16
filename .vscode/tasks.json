@@ -8,7 +8,7 @@
             "type": "shell",
             "command": "g++",
             "args": [
-                "./main.cpp","./Hashtable.cpp" 
+                "./main.cpp","./Hashtable.cpp","./Stock.cpp"
             ],
             "group": {
                 "kind": "build",
