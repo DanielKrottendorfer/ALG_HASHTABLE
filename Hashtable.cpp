@@ -9,14 +9,14 @@ using namespace std;
 bool Hashtable::add(Stock toAdd)
 {
 
-    if (valueC == capacity)
+    if (valueC == capacity-1)
     {
         return false;
     }
 
     int index = toAdd.hash();
 
-    for (int b = 0; (int)pow(b, 2) < capacity; b++)
+    for (int b = 0; b < capacity; b++)
     {
         index = abs(index + (int)pow(b, 2)) % capacity;
         if (tab[index].getName() == "")
@@ -42,7 +42,7 @@ bool Hashtable::del(string toDel)
     int matchB = -1;
     int matchI = -1;
 
-    for (int b = 0; (int)pow(b, 2) < capacity; b++)
+    for (int b = 0; b < capacity; b++)
     {
         index = abs(index + (int)pow(b, 2)) % capacity;
 
@@ -76,9 +76,26 @@ bool Hashtable::del(string toDel)
     return false;
 };
 
-Stock *Hashtable::search(string toDel)
+int Hashtable::search(string toFind)
 {
-    return nullptr;
+    int index = 1;
+
+    for (int i = 0; i < toFind.length(); i++)
+    {
+        index *= toFind[i];
+    };
+    
+    for (int b = 0; b < capacity; b++)
+    {
+        index = abs(index + (int)pow(b, 2)) % capacity;
+
+        if(tab[index].getName() == toFind)
+        {
+            return index;
+        };
+    };
+
+    return -1;
 };
 
 void Hashtable::printTable()

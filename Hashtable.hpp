@@ -15,7 +15,7 @@ class Hashtable
     Hashtable(){};
     bool add(Stock toAdd);
     bool del(string toDel);
-    Stock *search(string toDel);
+    int search(string toDel);
     void printTable();
 
   private:
