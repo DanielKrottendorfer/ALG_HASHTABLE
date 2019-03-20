@@ -1,10 +1,13 @@
 
 #include <iostream>
 #include <math.h>
+#include <fstream>
+#include <vector>
 using namespace std;
 
 #include "Stock.hpp"
 #include "Hashtable.hpp"
+#include "Import.hpp"
 
 int main()
 {
