@@ -13,7 +13,7 @@ class Hashtable
   public:
 
     Hashtable(){};
-    bool add(Stock toAdd);
+    int add(Stock toAdd);
     bool del(string toDel);
     int search(string toDel);
     void printTable();

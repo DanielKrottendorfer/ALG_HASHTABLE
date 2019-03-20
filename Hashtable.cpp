@@ -6,7 +6,7 @@
 #include "Hashtable.hpp"
 using namespace std;
 
-bool Hashtable::add(Stock toAdd)
+int Hashtable::add(Stock toAdd)
 {
 
     if (valueC == capacity-1)
@@ -23,10 +23,10 @@ bool Hashtable::add(Stock toAdd)
         {
             tab[index] = toAdd;
             valueC++;
-            return true;
+            return index;
         }
     }
-    return false;
+    return -1;
 };
 
 bool Hashtable::del(string toDel)
@@ -88,13 +88,11 @@ int Hashtable::search(string toFind)
     for (int b = 0; b < capacity; b++)
     {
         index = abs(index + (int)pow(b, 2)) % capacity;
-
         if(tab[index].getName() == toFind)
         {
             return index;
         };
     };
-
     return -1;
 };
 
