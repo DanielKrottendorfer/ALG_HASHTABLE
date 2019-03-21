@@ -11,86 +11,85 @@ int Hashtable::add(Stock toAdd)
 
     if (valueC == capacity-1)
     {
-        return false;
+        return -1;
     }
 
-    int index = toAdd.hash();
-
+    int hashV = toAdd.hash();
     for (int b = 0; b < capacity; b++)
     {
-        index = abs(index + (int)pow(b, 2)) % capacity;
+        int index;
+
+        index = (hashV + (int)pow(b, 2)) % capacity;
+        
         if (tab[index].getName() == "")
         {
             tab[index] = toAdd;
             valueC++;
             return index;
         }
+
+
+        index = (hashV - ((int)pow(b, 2))) % capacity;
+        while(index<0)
+        {
+            index+=capacity;
+        }
+        
+        if (tab[index].getName() == "")
+        {
+            tab[index] = toAdd;
+            valueC++;
+            return index;
+        }
+        
+        cout << index << endl;
     }
     return -1;
 };
 
 bool Hashtable::del(string toDel)
 {
-
-    int index = 1;
-
-    for (int i = 0; i < toDel.length(); i++)
-    {
-        index *= toDel[i];
-    };
-
-    int matchB = -1;
-    int matchI = -1;
-
-    for (int b = 0; b < capacity; b++)
-    {
-        index = abs(index + (int)pow(b, 2)) % capacity;
-
-        if (matchB < 0 && tab[index].getName() == toDel)
-        {
-            matchB = b;
-            matchI = index;
-        }
-
-        if (tab[index].getName() == "" && matchB >= 0)
-        {
-            while (tab[matchI].getName() != "")
-            {
-                int nextI = abs((matchI + (int)pow(matchB, 2))) % capacity;
-
-                tab[matchI] = tab[nextI];
-                matchI = nextI;
-                matchB++;
-            }
-            valueC--;
-            return true;
-        }
-        else
-        {
-            if (tab[index].getName() == "" && matchB < 0)
-            {
-                return false;
-            }
-        }
-    }
-    return false;
+    
 };
 
 int Hashtable::search(string toFind)
 {
-    int index = 1;
+    int hashV = 1;
 
     for (int i = 0; i < toFind.length(); i++)
     {
-        index *= toFind[i];
+        hashV *= toFind[i];
     };
     
     for (int b = 0; b < capacity; b++)
     {
-        index = abs(index + (int)pow(b, 2)) % capacity;
+        int index;
+        index = hashV + (int)pow(b, 2) % capacity;
+
         if(tab[index].getName() == toFind)
         {
             return index;
+        };
+
+        if(tab[index].getName() == "")
+        {
+            return -1;
+        };
+
+        index = (hashV - ((int)pow(b, 2))) % capacity;
+        while(index<0)
+        {
+            index+=capacity;
+        }
+        
+        if(tab[index].getName() == toFind)
+        {
+            return index;
+        };
+
+        if(tab[index].getName() == "")
+        {
+            return -1;
         };
     };
     return -1;
