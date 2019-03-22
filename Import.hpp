@@ -5,6 +5,7 @@
 #include <math.h>
 #include <fstream>
 #include <vector>
+#include <string>
 using namespace std;
 
 class Import
@@ -12,10 +13,9 @@ class Import
 
 public:
   Import(){};
-  vector<vector<string>> getData(string fileName);
+  vector<vector<string>> getData(string fileName, int index);
 
 private:
-  vector<vector<string>> dataVector;
 };
 
 #endif

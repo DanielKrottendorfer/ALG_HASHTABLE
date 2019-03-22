@@ -2,17 +2,18 @@
 #include <math.h>
 #include <fstream>
 #include <vector>
+#include <string>
 
 #include "Import.hpp"
 
 using namespace std;
 
-vector<vector<string>> Import::getData(string fileName)
+vector<vector<string>> Import::getData(string fileName, int index)
 {
-
+  vector<vector<string>> dataVector;
   ifstream csvFile;
   csvFile.open(fileName);
-  string dummy, temp[7][30];
+  string dummy, temp[8][30];
   getline(csvFile, dummy); // discard first row
 
   dataVector.push_back(vector<string>()); // datum
@@ -22,6 +23,7 @@ vector<vector<string>> Import::getData(string fileName)
   dataVector.push_back(vector<string>()); // close
   dataVector.push_back(vector<string>()); // volume
   dataVector.push_back(vector<string>()); // adj
+  dataVector.push_back(vector<string>()); // index of aktie
 
   for (int i = 0; i < 30; i++) // data from last 30 days
   {
@@ -41,6 +43,9 @@ vector<vector<string>> Import::getData(string fileName)
     dataVector[5].push_back(temp[5][i]); // volume
     dataVector[6].push_back(temp[6][i]); // adj
   }
+  string strIndex = to_string(index);
+  temp[7][0] = strIndex;
+  dataVector[7].push_back(temp[7][0]); // Index of aktie
 
   csvFile.close();
 

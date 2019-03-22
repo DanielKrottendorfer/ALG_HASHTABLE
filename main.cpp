@@ -3,6 +3,7 @@
 #include <math.h>
 #include <fstream>
 #include <vector>
+#include <string>
 using namespace std;
 
 #include "Stock.hpp"
@@ -21,11 +22,14 @@ int main()
 
     Hashtable t;
 
+    Import csv;
+    vector<vector<vector<string>>> dataVector;
+
     bool running = true;
 
     while (running)
     {
-        cout << ":" ;
+        cout << ":";
         cin >> input;
         switch (input)
         {
@@ -46,8 +50,26 @@ int main()
         }
         break;
         case 3:
-            /* IMPORT */
-            break;
+        {
+            cout << "IMPORT (Dateiname.csv): ";
+            string i;
+            cin >> i;
+
+            cout << "Welche Aktie: ";
+            string a;
+            int b;
+            cin >> a;
+            b = t.search(a);
+
+            if (b == -1)
+            {
+                cout << "Aktie nicht vorhanden!" << endl;
+                break;
+            }
+
+            dataVector.push_back(csv.getData(i, b)); // append new data to vector
+        }
+        break;
         case 4:
         {
             cout << "SEARCH: ";
@@ -57,8 +79,16 @@ int main()
         }
         break;
         case 5:
+        {
             /* PLOT */
-            break;
+            cout << "Anzahl an csv Daten: " << dataVector.size() << endl;
+
+            for (int i = 0; i < dataVector.size(); i++)
+            {
+                cout << "Datum von Index nummer " << dataVector[i][7][0] << ": " << dataVector[i][0][0] << endl;
+            }
+        }
+        break;
         case 6:
             /* SAVE */
             break;
