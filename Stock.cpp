@@ -21,3 +21,8 @@ string Stock::getName()
 {
     return name;
 }
+void Stock::setName(string n)
+{
+    name = n;
+}
+

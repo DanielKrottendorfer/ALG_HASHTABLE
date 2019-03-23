@@ -75,7 +75,8 @@ int main()
             cout << "SEARCH: ";
             string i = "";
             cin >> i;
-            t.search(i);
+            cout << i << " at index " << t.search(i) << endl;
+            
         }
         break;
         case 5:
@@ -107,19 +108,4 @@ int main()
         }
     }
 
-    /*
-    Stock s("name");
-    Stock a("anme");
-    Stock m("naem");
-    Stock e("enam");
-
-    Hashtable t;
-    t.add(a);
-    t.add(s);
-    t.add(m);
-    t.add(e);
-    t.printTable();
-    t.del("anme");
-    t.printTable();
-    */
 }

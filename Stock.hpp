@@ -15,6 +15,7 @@ class Stock
     int hash();
 
     string getName();
+    void setName(string n);
 
   private:
     string name;
