@@ -5,6 +5,7 @@
 #include <string>
 
 #include "Import.hpp"
+#include "StockValue.hpp"
 
 using namespace std;
 
@@ -50,4 +51,63 @@ vector<vector<string>> Import::getData(string fileName, int index)
   csvFile.close();
 
   return dataVector;
+};
+
+vector<StockValue> Import::importLastMonth(string fileName)
+{
+  ifstream csvFile;
+  csvFile.open(fileName);
+
+  vector<StockValue> skV;
+  string line = "";
+
+  string date;
+  string open;
+  string high;
+  string low;
+  string close;
+  string volume;
+  string adj;
+
+  int d[3];
+  float o;
+  float h;
+  float l;
+  float c;
+  int v;
+  float a;
+
+  for (int i = 1; i < 31; i++)
+  {
+    getline(csvFile, line);
+
+    getline(csvFile, date, ',');   // datum
+    getline(csvFile, open, ',');   // open
+    getline(csvFile, high, ',');   // high
+    getline(csvFile, low, ',');    // low
+    getline(csvFile, close, ',');  // close
+    getline(csvFile, volume, ','); // volume
+    getline(csvFile, adj, '\n');   // adj
+
+
+    d[0] = stoi(date.substr(0,4));
+    d[1] = stoi(date.substr(5,2));
+    d[2] = stoi(date.substr(8,2));
+
+    v = stoi(volume);
+
+    o = stof(open);
+    h = stof(high);
+    l = stof(low);
+    c = stof(close);
+    a = stof(adj);
+
+    StockValue n;
+    n = StockValue(d,o,h,l,c,v,a);
+
+    skV.push_back(n);
+
+  }
+  csvFile.close();
+  return skV;
 };

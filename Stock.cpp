@@ -26,3 +26,15 @@ void Stock::setName(string n)
     name = n;
 }
 
+void Stock::printValues()
+{
+    for( int i=0 ; i<values.size() ; i++ )
+    {
+        values[i].print();
+    }
+}
+
+void Stock::setValues(vector<StockValue> v)
+{
+    values = v;
+}

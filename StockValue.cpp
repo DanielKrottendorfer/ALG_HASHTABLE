@@ -5,33 +5,23 @@
 #include <vector>
 using namespace std;
 
-StockValue::StockValue(vector<string> line)
+StockValue::StockValue(){};
+StockValue::StockValue(int * date,float open,float high,float low,float close,int volume,float adj)
 {
 
-    int y = stoi(line[0].substr(0,3));
-    int m = stoi(line[0].substr(5,6));
-    int d = stoi(line[0].substr(8,9));
-    
-    float o = stof(line[1]);
-    float h = stof(line[2]);
-    float l = stof(line[3]);
-    float c = stof(line[4]);
-    float v = stof(line[5]);
-    float a = stof(line[6]);
-
-    this->date[0] = y;
-    this->date[1] = m;
-    this->date[2] = d;
-    this->open = o;
-    this->high = h;
-    this->low = l;
-    this->close = c;
-    this->volume = v;
-    this->adj = a;
+    this->date[0] = date[0];
+    this->date[1] = date[1];
+    this->date[2] = date[2];
+    this->open = open;
+    this->high = high;
+    this->low = low;
+    this->close = close;
+    this->volume = volume;
+    this->adj = adj;
 
 }
 
 void StockValue::print()
 {
-    cout << date[0] << open << high << close;
+    cout << date[0] << " " << date[1] << " " << date[2] << " " << open << " " <<  high << " " <<  close << endl;
 }

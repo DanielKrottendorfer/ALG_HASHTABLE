@@ -1,10 +1,13 @@
+#ifndef STOCKVALUE
+#define STOCKVALUE
 
 #include <iostream>
 class StockValue
 {
 
   public:
-    StockValue(vector<string> line);
+    StockValue();
+    StockValue(int * date,float open,float high,float low,float close,int volume,float adj);
     void print();
 
   private:
@@ -13,6 +16,8 @@ class StockValue
     float high;
     float low;
     float close;
-    float volume;
+    int volume;
     float adj;
 };
+
+#endif

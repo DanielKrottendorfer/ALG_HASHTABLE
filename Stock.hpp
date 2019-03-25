@@ -3,6 +3,9 @@
 
 #include <iostream>
 #include <math.h>
+#include <vector>
+
+#include "StockValue.hpp"
 using namespace std;
 
 class Stock
@@ -17,8 +20,13 @@ class Stock
     string getName();
     void setName(string n);
 
+    void setValues(vector<StockValue> v);
+
+    void printValues();
+
   private:
     string name;
+    vector<StockValue> values;
 };
 
 #endif

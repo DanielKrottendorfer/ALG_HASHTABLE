@@ -76,7 +76,6 @@ int main()
             string i = "";
             cin >> i;
             cout << i << " at index " << t.search(i) << endl;
-            
         }
         break;
         case 5:
@@ -102,10 +101,23 @@ int main()
         case 9:
             t.printTable();
             break;
+        case 10:
+        {
+            /*
+            cout << "Where do you want to import" << endl;
+            int i = 0;
+            cin >> i;
+            */
+            vector<StockValue> sv = csv.importLastMonth(string("msft.csv"));
 
+            for (int i = 0; i < sv.size(); i++)
+            {
+                sv[i].print();
+            }
+        }
+            break;
         default:
             break;
         }
     }
-
 }

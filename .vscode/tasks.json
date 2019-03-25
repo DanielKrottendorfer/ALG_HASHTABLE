@@ -11,6 +11,7 @@
                 "./main.cpp",
                 "./Hashtable.cpp",
                 "./Stock.cpp",
+                "./StockValue.cpp",
                 "./Import.cpp"
             ],
             "group": {
