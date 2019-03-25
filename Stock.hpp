@@ -19,9 +19,8 @@ class Stock
 
     string getName();
     void setName(string n);
-
     void setValues(vector<StockValue> v);
-
+    vector<StockValue> getValues();
     void printValues();
 
   private:

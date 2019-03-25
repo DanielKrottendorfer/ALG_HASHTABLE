@@ -17,6 +17,9 @@ class Hashtable
     bool del(string toDel);
     int search(string toDel);
     void printTable();
+    void printStock(int i);
+    void plotStock(int i);
+    Stock * getStock(int i);
 
   private:
     //capacity is gonna be 2003 in the final version

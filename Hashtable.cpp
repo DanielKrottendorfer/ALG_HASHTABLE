@@ -191,6 +191,11 @@ int Hashtable::search(string toFind)
     return -1;
 };
 
+Stock * Hashtable::getStock(int i)
+{
+    return &tab[i];
+}
+
 void Hashtable::printTable()
 {
     for (int i = 0; i < capacity; i++)
@@ -205,3 +210,55 @@ void Hashtable::printTable()
         }
     }
 };
+
+void Hashtable::printStock(int i)
+{
+    tab[i].printValues();
+}
+
+void Hashtable::plotStock(int i)
+{
+    
+    vector<StockValue> sv = tab[i].getValues();
+
+    float min = sv[0].getAdj();
+    float max = sv[0].getAdj();
+
+
+    for( int i=1 ; i<30 ; i++)
+    {
+        float adj = sv[i].getAdj();
+
+        if(adj<min)
+        {
+            min = adj;
+        }
+        if(adj>max)
+        {
+            max = adj;
+        }
+    }
+    float range = max-min;
+
+    cout << "min " << min << " max " << max <<" range " << range << endl;
+
+    for( float i=0.9 ; i>0 ; i-=0.1)
+    {
+        for( int y=0 ; y<30 ; y++)
+        {
+            
+            float adj = sv[y].getAdj();
+            adj-=min;
+            adj/=range;
+
+            if(adj>i && adj<i+0.1)
+            {
+                cout << 'x';
+            }else
+            {
+                cout << ' ';
+            }
+        }
+        cout << endl;
+    }
+}

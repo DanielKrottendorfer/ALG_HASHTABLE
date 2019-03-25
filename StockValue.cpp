@@ -23,5 +23,10 @@ StockValue::StockValue(int * date,float open,float high,float low,float close,in
 
 void StockValue::print()
 {
-    cout << date[0] << " " << date[1] << " " << date[2] << " " << open << " " <<  high << " " <<  close << endl;
+    cout << date[0] << " " << date[1] << " " << date[2] << " " << open << " " <<  high << " " <<  low << " "  <<  close << " " << volume << " " << adj << " " << endl;
+}
+
+float StockValue::getAdj()
+{
+    return adj;
 }

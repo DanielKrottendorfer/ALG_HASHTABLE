@@ -38,3 +38,6 @@ void Stock::setValues(vector<StockValue> v)
 {
     values = v;
 }
+vector<StockValue> Stock::getValues(){
+    return values;
+}

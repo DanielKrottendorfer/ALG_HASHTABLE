@@ -67,6 +67,9 @@ int main()
                 break;
             }
 
+            vector<StockValue> sv = csv.importLastMonth(i);
+            t.getStock(b)->setValues(sv);
+
             dataVector.push_back(csv.getData(i, b)); // append new data to vector
         }
         break;
@@ -87,6 +90,22 @@ int main()
             {
                 cout << "Datum von Index nummer " << dataVector[i][7][0] << ": " << dataVector[i][0][0] << endl;
             }
+
+
+            cout << "Welche Aktie: ";
+            string a;
+            int b;
+            cin >> a;
+            b = t.search(a);
+
+            if (b == -1)
+            {
+                cout << "Aktie nicht vorhanden!" << endl;
+                break;
+            }
+
+            t.plotStock(b);
+
         }
         break;
         case 6:

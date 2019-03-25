@@ -77,9 +77,10 @@ vector<StockValue> Import::importLastMonth(string fileName)
   int v;
   float a;
 
-  for (int i = 1; i < 31; i++)
+  getline(csvFile,line);
+
+  for (int i = 0; i < 30; i++)
   {
-    getline(csvFile, line);
 
     getline(csvFile, date, ',');   // datum
     getline(csvFile, open, ',');   // open
