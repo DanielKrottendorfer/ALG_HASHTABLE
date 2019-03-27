@@ -23,9 +23,17 @@ class Stock
     vector<StockValue> getValues();
     void printValues();
 
+    void incDependencie();
+    void decDependencie();
+    int getDependencies();
+
+    bool hasDependencies();
+
   private:
     string name;
     vector<StockValue> values;
+
+    int dependencies = 0;
 };
 
 #endif

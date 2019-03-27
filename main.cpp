@@ -46,7 +46,16 @@ int main()
             cout << "DEL: ";
             string i = "";
             cin >> i;
-            t.del(i);
+            if(t.del(i))
+            {
+                cout << "deleted";
+            }else
+            {
+                cout << " not deleted";
+            }
+
+            cout << endl;
+            
         }
         break;
         case 3:

@@ -41,3 +41,18 @@ void Stock::setValues(vector<StockValue> v)
 vector<StockValue> Stock::getValues(){
     return values;
 }
+
+void Stock::incDependencie(){ dependencies++; }
+void Stock::decDependencie(){ dependencies--; }
+bool Stock::hasDependencies()
+{
+    if(dependencies>0)
+    {
+        return true;
+    }else
+    {
+        return false;
+    }
+}
+
+int Stock::getDependencies(){ return dependencies; }

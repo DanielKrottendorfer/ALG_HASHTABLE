@@ -12,7 +12,7 @@ class Hashtable
 {
   public:
 
-    Hashtable(){};
+    Hashtable();
     int add(Stock toAdd);
     bool del(string toDel);
     int search(string toDel);
