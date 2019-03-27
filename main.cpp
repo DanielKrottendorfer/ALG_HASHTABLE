@@ -4,6 +4,7 @@
 #include <fstream>
 #include <vector>
 #include <string>
+#include <map>
 using namespace std;
 
 #include "Stock.hpp"
@@ -22,6 +23,12 @@ int main()
 
     Hashtable t;
 
+    
+    map<string, string> dictionary;
+
+    //dict["abc"] = "cde";
+
+
     Import csv;
     vector<vector<vector<string>>> dataVector;
 
@@ -35,9 +42,16 @@ int main()
         {
         case 1:
         {
-            cout << "ADD: ";
+            cout << "ADD: " << endl;
+            cout << "Name: ";
             string i = "";
             cin >> i;
+            cout << "Shortform: ";
+            string y = "";
+            cin >> y;
+
+            dictionary[y] = i; 
+
             t.add(i);
         }
         break;
@@ -46,6 +60,12 @@ int main()
             cout << "DEL: ";
             string i = "";
             cin >> i;
+
+            if(dictionary[i].length()>0)
+            {
+                i = dictionary[i];
+            }
+
             if(t.del(i))
             {
                 cout << "deleted";
@@ -87,22 +107,27 @@ int main()
             cout << "SEARCH: ";
             string i = "";
             cin >> i;
+
+            if(dictionary[i].length()>0)
+            {
+                i = dictionary[i];
+            }
+
             cout << i << " at index " << t.search(i) << endl;
         }
         break;
         case 5:
         {
             /* PLOT */
-            cout << "Anzahl an csv Daten: " << dataVector.size() << endl;
-
-            for (int i = 0; i < dataVector.size(); i++)
-            {
-                cout << "Datum von Index nummer " << dataVector[i][7][0] << ": " << dataVector[i][0][0] << endl;
-            }
-
 
             cout << "Welche Aktie: ";
+
+            
             string a;
+            if(dictionary[a].length()>0)
+            {
+                a = dictionary[a];
+            }
             int b;
             cin >> a;
             b = t.search(a);
