@@ -7,6 +7,12 @@
 #include "Stock.hpp"
 using namespace std;
 
+/* die Klasse Hashtable ist eine ... Hashtable
+capacity gibt die gröze det HTB an
+tab ist das array mit den Werten
+valueC gibt an wie viele Datensätze in der HTB sind
+*/
+
 class Hashtable
 {
 public:
@@ -26,11 +32,9 @@ public:
   string toString();
 
 private:
-  //capacity is gonna be 2003 in the final version
-  int capacity = 23;
-  Stock tab[23];
+  int capacity = 1511;
+  Stock tab[1511];
   int valueC = 0;
-  //ValueCount
 };
 
 #endif

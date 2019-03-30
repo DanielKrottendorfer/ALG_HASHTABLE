@@ -9,6 +9,7 @@
 
 using namespace std;
 
+/*
 vector<vector<string>> Import::getData(string fileName, int index)
 {
   vector<vector<string>> dataVector;
@@ -52,13 +53,22 @@ vector<vector<string>> Import::getData(string fileName, int index)
 
   return dataVector;
 };
-
+*/
 vector<StockValue> Import::importLastMonth(string fileName)
 {
+
+  // hier wird ein csv File importiert und zu einem StockValue vector verabeitet
+
   ifstream csvFile;
   csvFile.open(fileName);
-
   vector<StockValue> skV;
+
+  if (!csvFile.is_open())
+  {
+    cout << "upps da ist etwas schief gelaufen" << endl;
+    return skV;
+  }
+
   string line = "";
 
   string date;
@@ -78,6 +88,8 @@ vector<StockValue> Import::importLastMonth(string fileName)
   float a;
 
   getline(csvFile, line);
+
+  //hier werden die Werte der Aktie ausgelesen und in einen StockValue vector geschrieben
 
   for (int i = 0; i < 30; i++)
   {

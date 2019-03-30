@@ -16,7 +16,7 @@ class Import
 
 public:
   Import(){};
-  vector<vector<string>> getData(string fileName, int index);
+  //vector<vector<string>> getData(string fileName, int index);
   vector<StockValue> importLastMonth(string fileName);
 
 private:

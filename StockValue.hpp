@@ -2,6 +2,10 @@
 #define STOCKVALUE
 
 #include <iostream>
+
+
+// StockValue stellt die Daten einer Aktie zu einem gewissen Zeitpunkt da
+
 class StockValue
 {
 

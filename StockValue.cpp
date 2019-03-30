@@ -35,6 +35,11 @@ int *StockValue::getDate()
     return date;
 }
 
+/*
+Die toString Methode wandelt alle Eigenschaften des Objekts in einen String um,
+ um diesen anschließende auszugeben oder wie in diesem Fall abzuspeichern. 
+ */
+
 std::string StockValue::toString()
 {
     std::string s;

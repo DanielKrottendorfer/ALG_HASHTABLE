@@ -1,11 +1,16 @@
+//import and plot test
+
 1
 abc
+a
+32
 3
 msft.csv
 abc
 5
 abc
 
+//collision test
 
 1
 abc
@@ -20,7 +25,7 @@ cab
 1
 cba
 
-//worst case
+//worst case collision
 
 1
 abc
@@ -33,4 +38,46 @@ bca
 1
 mn
 2
+bca
+
+// serialize test
+
+1
+abc
+a
+123
+3
+msft.csv
+abc
+6
+
+// serialize test stress
+
+1
+abc
+a
+123
+3
+msft.csv
+abc
+1
+bca
+b
+231
+3
+MSFT(3).csv
+bca
+6
+
+search test
+
+1
+abc
+a
+123
+1
+bca
+b
+123
+4
 bca

@@ -27,6 +27,8 @@ void SaveHashtable(Hashtable t)
 Hashtable LoadHashtable()
 {
 
+    //wir erstellen eine neu HTB und öffnen ein file und überprüfen ob es geklappt hat
+
     Hashtable t;
     ifstream saveFile("save.txt");
 
@@ -38,8 +40,12 @@ Hashtable LoadHashtable()
 
     string line;
 
+    // schleife läuft so lange wei es Zeilen gibt
+
     while (getline(saveFile, line))
     {
+
+        //hier wird der Index ausgelesen
         int index = stoi(line.substr(1, line.size() - 1));
 
         string name;
@@ -47,6 +53,7 @@ Hashtable LoadHashtable()
         string wkn;
         string dependencies;
 
+        //hier werden die Eigenschaften der Aktie ausgelesen
         getline(saveFile, name, ',');
         getline(saveFile, shortform, ',');
         getline(saveFile, wkn, ',');
@@ -71,6 +78,10 @@ Hashtable LoadHashtable()
         float a;
 
         vector<StockValue> skV;
+
+        
+        //hier werden die Werte der Aktie ausgelesen und in einen StockValue vector geschrieben
+
         for (int i = 0; i < 30; i++)
         {
             getline(saveFile, date, ',');   // datum
@@ -100,10 +111,15 @@ Hashtable LoadHashtable()
 
             skV.push_back(n);
         }
+        
+        // hier wird der StockValue vector übergeben und anschließend wird die Aktie in die HTB an einem gewissen Index eingetragen
 
         s.setValues(skV);
         t.addAtIndex(s, index);
     }
+
+    // das file wird geschlossen und die HTB zurückgegeben
+
     saveFile.close();
 
     return t;

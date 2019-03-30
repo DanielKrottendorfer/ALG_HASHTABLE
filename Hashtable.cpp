@@ -17,13 +17,19 @@ Hashtable::Hashtable()
 int Hashtable::add(Stock toAdd)
 {
 
-    if (valueC >= capacity - 1)
+    /* die HTB darf nicht zu 100% befüllt werden weil 
+    wir am ende eien leere Zelle brauchen
+    */
+
+    if (valueC > capacity - 1)
     {
         return -1;
     }
 
+    // der hashvalue wird berechnet
     int hashV = toAdd.hash() % capacity;
 
+    //es wird überprüft ob es den namen schon gibt
     if (tab[hashV].getName() == toAdd.getName())
     {
         cout << "Diese Aktie existiert bersits!" << endl;
@@ -41,10 +47,21 @@ int Hashtable::add(Stock toAdd)
         tab[hashV].incDependencie();
     }
 
+    /* wir gehen mit b=1 in die schleife weil wir die erste
+    Position schon überprüft haben und wir uns einen unnötigen
+    Schleifnezyklus spareben dann hashV + 0^2 == hashV - 0^2
+    */
+
     int base = 1;
 
     for (int i = 0; base < capacity; i++)
     {
+        
+        /* variable i dient hier zur alternierenden quadratischen
+        sondierung, wenn i gerade ist ist base^2 positivund
+        wenn i ungerade ist ist base^2 negativ und base wird
+        erhöht*/
+
         int index = 0;
         if (i % 2 == 0)
         {
@@ -66,11 +83,17 @@ int Hashtable::add(Stock toAdd)
             base++;
         }
 
+        // check ob der name schon existiert
+
         if (tab[index].getName() == toAdd.getName())
         {
             cout << "Diese Aktie existiert bersits!" << endl;
             return -1;
         }
+
+        /* wenn leer dann wird die Aktie eingefügt
+         wenn kollision dann wird die dependencie um 1
+         erhöht*/
 
         if (tab[index].getName() == "")
         {
@@ -81,7 +104,6 @@ int Hashtable::add(Stock toAdd)
         else
         {
             tab[index].incDependencie();
-            cout << "inc" << endl;
         }
     }
     return -1;
@@ -90,6 +112,8 @@ int Hashtable::add(Stock toAdd)
 bool Hashtable::del(string toDel)
 {
     int hashV = 1;
+
+    //hashVale wird berechnet
 
     for (int i = 0; i < toDel.length(); i++)
     {
@@ -102,6 +126,8 @@ bool Hashtable::del(string toDel)
     int loopC = 0;
 
     int index = hashV;
+
+    // der wert wird in der HTB gesucht der index und die basis wird gespeichert
     for (int i = 0; base < capacity; i++)
     {
 
@@ -138,7 +164,9 @@ bool Hashtable::del(string toDel)
         }
     }
 
-    //cout << " index: " << index << endl;
+    /*die dependencies der Werte mit dem der Wert
+    kollidiert werden verringert
+    */
 
     for (int i = 0, b = 0; b < base; i++)
     {
@@ -162,7 +190,8 @@ bool Hashtable::del(string toDel)
         tab[index].decDependencie();
     }
 
-    // printTable();
+    /* Der zu löschende Wert wird gelöscht und die 
+    verbleibenden werte werden nachgerückt*/
 
     int index2 = 0;
 
@@ -197,8 +226,6 @@ bool Hashtable::del(string toDel)
             base++;
         }
 
-        cout << "index1: " << index << " index2: " << index2 << endl;
-
         tab[index].setName(tab[index2].getName());
         tab[index].setValues(tab[index2].getValues());
 
@@ -207,19 +234,15 @@ bool Hashtable::del(string toDel)
             return true;
         }
     }
-    printTable();
-    cout << "end";
     return false;
 };
 
 int Hashtable::search(string toFind, bool print)
 {
-
-    if (valueC >= capacity - 1)
-    {
-        return -1;
-    }
-
+    /* bool print gibt an ob nach der suche der letzte
+    Aktienwert ausgegeben werden soll
+    der Index der gesuchten Aktie wird zurückgegeben
+    falls sie gefunden wird*/
     int hashV = 1;
 
     for (int i = 0; i < toFind.length(); i++)
@@ -300,12 +323,12 @@ void Hashtable::printStock(int i)
 
 void Hashtable::plotStock(int i)
 {
-
     vector<StockValue> sv = tab[i].getValues();
 
     float min = sv[0].getAdj();
     float max = sv[0].getAdj();
 
+    // minimum und maximum der Werte wird berechnet
     for (int i = 1; i < 30; i++)
     {
         float adj = sv[i].getAdj();
@@ -324,6 +347,8 @@ void Hashtable::plotStock(int i)
     int *d1 = sv[29].getDate();
     int *d2 = sv[0].getDate();
 
+    //Daten zum besseren verständnis des Diagramms werden ausgegeben
+
     cout << "Datum " << d1[2] << "." << d1[1] << "." << d1[0] << " bis " << d2[2] << "." << d2[1] << "." << d2[0] << endl;
 
     cout << "Berichtigter Kurs min " << min << " max " << max << endl;
@@ -333,6 +358,7 @@ void Hashtable::plotStock(int i)
     for (float i = 0.9; i > 0; i -= 0.1)
     {
         cout << "|";
+
         for (int y = 29; y >= 0; y--)
         {
 
@@ -378,7 +404,7 @@ string Hashtable::toString()
 
     for (int i = 0; i < capacity; i++)
     {
-        if (tab[i].getName() != "")
+        if (tab[i].hasDependencies())
         {
             s += "<";
             s += to_string(i);
