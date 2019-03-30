@@ -7,26 +7,30 @@
 #include "Stock.hpp"
 using namespace std;
 
-
 class Hashtable
 {
-  public:
+public:
+  Hashtable();
+  int add(Stock toAdd);
+  bool del(string toDel);
+  int search(string toDel, bool print);
+  void printTable();
+  void printStock(int i);
+  void plotStock(int i);
+  Stock *getStock(int i);
+  Stock *getTable();
 
-    Hashtable();
-    int add(Stock toAdd);
-    bool del(string toDel);
-    int search(string toDel);
-    void printTable();
-    void printStock(int i);
-    void plotStock(int i);
-    Stock * getStock(int i);
+  void addAtIndex(Stock s, int i);
 
-  private:
-    //capacity is gonna be 2003 in the final version
-    const int capacity = 23;
-    Stock tab[23];
-    int valueC = 0;
-    //ValueCount
+  int size();
+  string toString();
+
+private:
+  //capacity is gonna be 2003 in the final version
+  int capacity = 23;
+  Stock tab[23];
+  int valueC = 0;
+  //ValueCount
 };
 
 #endif

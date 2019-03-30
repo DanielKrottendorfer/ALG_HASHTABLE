@@ -24,6 +24,12 @@ int Hashtable::add(Stock toAdd)
 
     int hashV = toAdd.hash() % capacity;
 
+    if (tab[hashV].getName() == toAdd.getName())
+    {
+        cout << "Diese Aktie existiert bersits!" << endl;
+        return -1;
+    }
+
     if (tab[hashV].getName() == "")
     {
         tab[hashV] = toAdd;
@@ -58,6 +64,12 @@ int Hashtable::add(Stock toAdd)
                 index += capacity;
             }
             base++;
+        }
+
+        if (tab[index].getName() == toAdd.getName())
+        {
+            cout << "Diese Aktie existiert bersits!" << endl;
+            return -1;
         }
 
         if (tab[index].getName() == "")
@@ -186,10 +198,10 @@ bool Hashtable::del(string toDel)
         }
 
         cout << "index1: " << index << " index2: " << index2 << endl;
-        
+
         tab[index].setName(tab[index2].getName());
         tab[index].setValues(tab[index2].getValues());
-        
+
         if (tab[index].getName() == "")
         {
             return true;
@@ -200,7 +212,7 @@ bool Hashtable::del(string toDel)
     return false;
 };
 
-int Hashtable::search(string toFind)
+int Hashtable::search(string toFind, bool print)
 {
 
     if (valueC >= capacity - 1)
@@ -230,8 +242,6 @@ int Hashtable::search(string toFind)
             {
                 index -= capacity;
             }
-
-            base++;
         }
         else
         {
@@ -241,11 +251,14 @@ int Hashtable::search(string toFind)
             {
                 index += capacity;
             }
+            base++;
         }
-
-
         if (tab[index].getName() == toFind)
         {
+            if (print)
+            {
+                tab[index].printLastValue();
+            }
             return index;
         }
         else
@@ -308,18 +321,26 @@ void Hashtable::plotStock(int i)
     }
     float range = max - min;
 
-    cout << "min " << min << " max " << max << " range " << range << endl;
+    int *d1 = sv[29].getDate();
+    int *d2 = sv[0].getDate();
+
+    cout << "Datum " << d1[2] << "." << d1[1] << "." << d1[0] << " bis " << d2[2] << "." << d2[1] << "." << d2[0] << endl;
+
+    cout << "Berichtigter Kurs min " << min << " max " << max << endl;
+
+    cout << "--------------------------------" << endl;
 
     for (float i = 0.9; i > 0; i -= 0.1)
     {
-        for (int y = 0; y < 30; y++)
+        cout << "|";
+        for (int y = 29; y >= 0; y--)
         {
 
             float adj = sv[y].getAdj();
             adj -= min;
             adj /= range;
 
-            if (adj > i && adj < i + 0.1)
+            if (adj >= i && adj <= i + 0.1)
             {
                 cout << 'x';
             }
@@ -328,6 +349,43 @@ void Hashtable::plotStock(int i)
                 cout << ' ';
             }
         }
+        cout << "|";
         cout << endl;
     }
+
+    cout << "--------------------------------" << endl;
+}
+
+Stock *Hashtable::getTable()
+{
+    return tab;
+}
+
+int Hashtable::size()
+{
+    return capacity;
+}
+
+void Hashtable::addAtIndex(Stock s, int i)
+{
+    tab[i] = s;
+}
+
+string Hashtable::toString()
+{
+
+    string s;
+
+    for (int i = 0; i < capacity; i++)
+    {
+        if (tab[i].getName() != "")
+        {
+            s += "<";
+            s += to_string(i);
+            s += "\n";
+            s += tab[i].toString();
+        }
+    }
+
+    return s;
 }

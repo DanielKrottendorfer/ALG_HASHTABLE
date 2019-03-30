@@ -77,7 +77,7 @@ vector<StockValue> Import::importLastMonth(string fileName)
   int v;
   float a;
 
-  getline(csvFile,line);
+  getline(csvFile, line);
 
   for (int i = 0; i < 30; i++)
   {
@@ -90,10 +90,9 @@ vector<StockValue> Import::importLastMonth(string fileName)
     getline(csvFile, volume, ','); // volume
     getline(csvFile, adj, '\n');   // adj
 
-
-    d[0] = stoi(date.substr(0,4));
-    d[1] = stoi(date.substr(5,2));
-    d[2] = stoi(date.substr(8,2));
+    d[0] = stoi(date.substr(0, 4));
+    d[1] = stoi(date.substr(5, 2));
+    d[2] = stoi(date.substr(8, 2));
 
     v = stoi(volume);
 
@@ -104,10 +103,9 @@ vector<StockValue> Import::importLastMonth(string fileName)
     a = stof(adj);
 
     StockValue n;
-    n = StockValue(d,o,h,l,c,v,a);
+    n = StockValue(d, o, h, l, c, v, a);
 
     skV.push_back(n);
-
   }
   csvFile.close();
   return skV;

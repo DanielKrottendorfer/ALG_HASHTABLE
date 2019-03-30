@@ -12,7 +12,8 @@
                 "./Hashtable.cpp",
                 "./Stock.cpp",
                 "./StockValue.cpp",
-                "./Import.cpp"
+                "./Import.cpp",
+                "-o MyHashtable"
             ],
             "group": {
                 "kind": "build",

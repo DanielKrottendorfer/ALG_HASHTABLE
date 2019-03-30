@@ -11,29 +11,34 @@ using namespace std;
 class Stock
 {
 
-  public:
-    Stock(string n) : name(n){};
-    Stock(){};
+public:
+  Stock(string n, string s, int w, int d) : name(n), shortform(s), wkn(w), dependencies(d){};
+  Stock(){};
 
-    int hash();
+  int hash();
 
-    string getName();
-    void setName(string n);
-    void setValues(vector<StockValue> v);
-    vector<StockValue> getValues();
-    void printValues();
+  string getName();
+  void setName(string n);
+  void setValues(vector<StockValue> v);
+  vector<StockValue> getValues();
+  void printValues();
+  void printLastValue();
 
-    void incDependencie();
-    void decDependencie();
-    int getDependencies();
+  void incDependencie();
+  void decDependencie();
+  int getDependencies();
 
-    bool hasDependencies();
+  bool hasDependencies();
 
-  private:
-    string name;
-    vector<StockValue> values;
+  string toString();
 
-    int dependencies = 0;
+private:
+  string name;
+  string shortform;
+  int wkn;
+  vector<StockValue> values;
+
+  int dependencies = 0;
 };
 
 #endif

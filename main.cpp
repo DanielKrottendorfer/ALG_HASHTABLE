@@ -11,11 +11,19 @@ using namespace std;
 #include "Hashtable.hpp"
 #include "Import.hpp"
 
+#include "Serialize.hpp"
+
 int main()
 {
 
-    cout << "1.ADD:Eine Aktie mit Namen, WKNund Kürzel wird hinzugefügt.\n2.DEL: Aktie wird gelöscht.\n3.IMPORT: Kurswerte für eine Aktie werden aus einer csv Datei importiert.\n4.SEARCH: Eine Aktiewird in der Hashtabelle gesucht (Eingabe von Namen oder Kürzel) und der aktuellste Kurseintrag (Date,Open,High,Low,Close,Volume,Adj Close)wirdausgegeben.\n5.PLOT: Die Schlusskurse der letzten 30 Tage einer Aktiewerden als ASCII Grafik ausgegeben, Format ist frei wählbar.\n6.SAVE <filename>: Programm speichert die Hashtabelle in eine Datei ab.\n7.LOAD <filename>: Programm lädt die Hashtabelle aus einer Datei.\n8.QUIT: Programm wird beendet.\n"
-         << endl;
+    cout << "1.ADD:Eine Aktie mit Namen, WKNund Kürzel wird hinzugefügt." << endl;
+    cout << "2.DEL: Aktie wird gelöscht." << endl;
+    cout << "3.IMPORT: Kurswerte für eine Aktie werden aus einer csv Datei importiert." << endl;
+    cout << "4.SEARCH: Eine Aktiewird in der Hashtabelle gesucht (Eingabe von Namen oder Kürzel) und der aktuellste Kurseintrag (Date,Open,High,Low,Close,Volume,Adj Close)wirdausgegeben." << endl;
+    cout << "5.PLOT: Die Schlusskurse der letzten 30 Tage einer Aktiewerden als ASCII Grafik ausgegeben, Format ist frei wählbar." << endl;
+    cout << "6.SAVE <filename>: Programm speichert die Hashtabelle in eine Datei ab." << endl;
+    cout << "7.LOAD <filename>: Programm lädt die Hashtabelle aus einer Datei." << endl;
+    cout << "8.QUIT: Programm wird beendet." << endl;
 
     int selected = -1;
 
@@ -23,11 +31,9 @@ int main()
 
     Hashtable t;
 
-    
     map<string, string> dictionary;
 
     //dict["abc"] = "cde";
-
 
     Import csv;
     vector<vector<vector<string>>> dataVector;
@@ -46,13 +52,20 @@ int main()
             cout << "Name: ";
             string i = "";
             cin >> i;
+
             cout << "Shortform: ";
             string y = "";
             cin >> y;
 
-            dictionary[y] = i; 
+            cout << "WKN: ";
+            int wkn = 0;
+            cin >> wkn;
 
-            t.add(i);
+            dictionary[y] = i;
+
+            Stock st(i, y, wkn, 0);
+
+            t.add(st);
         }
         break;
         case 2:
@@ -61,21 +74,21 @@ int main()
             string i = "";
             cin >> i;
 
-            if(dictionary[i].length()>0)
+            if (dictionary[i].length() > 0)
             {
                 i = dictionary[i];
             }
 
-            if(t.del(i))
+            if (t.del(i))
             {
                 cout << "deleted";
-            }else
+            }
+            else
             {
                 cout << " not deleted";
             }
 
             cout << endl;
-            
         }
         break;
         case 3:
@@ -88,7 +101,11 @@ int main()
             string a;
             int b;
             cin >> a;
-            b = t.search(a);
+            if (dictionary[a].length() > 0)
+            {
+                a = dictionary[a];
+            }
+            b = t.search(a, false);
 
             if (b == -1)
             {
@@ -108,12 +125,14 @@ int main()
             string i = "";
             cin >> i;
 
-            if(dictionary[i].length()>0)
+            if (dictionary[i].length() > 0)
             {
                 i = dictionary[i];
             }
 
-            cout << i << " at index " << t.search(i) << endl;
+            //cout << i << " at index " << t.search(i) << endl;
+            int y = t.search(i, true);
+            cout << y << " index" << endl;
         }
         break;
         case 5:
@@ -122,15 +141,14 @@ int main()
 
             cout << "Welche Aktie: ";
 
-            
             string a;
-            if(dictionary[a].length()>0)
+            cin >> a;
+            if (dictionary[a].length() > 0)
             {
                 a = dictionary[a];
             }
             int b;
-            cin >> a;
-            b = t.search(a);
+            b = t.search(a, false);
 
             if (b == -1)
             {
@@ -139,14 +157,19 @@ int main()
             }
 
             t.plotStock(b);
-
         }
         break;
         case 6:
             /* SAVE */
+
+            SaveHashtable(t);
+
             break;
         case 7:
             /* LOAD */
+            {
+                t = LoadHashtable();
+            }
             break;
         case 8:
             running = false;
@@ -156,11 +179,6 @@ int main()
             break;
         case 10:
         {
-            /*
-            cout << "Where do you want to import" << endl;
-            int i = 0;
-            cin >> i;
-            */
             vector<StockValue> sv = csv.importLastMonth(string("msft.csv"));
 
             for (int i = 0; i < sv.size(); i++)
@@ -168,7 +186,7 @@ int main()
                 sv[i].print();
             }
         }
-            break;
+        break;
         default:
             break;
         }
