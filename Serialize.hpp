@@ -107,7 +107,6 @@ Hashtable LoadHashtable()
             StockValue n;
             n = StockValue(d, o, h, l, c, v, a);
 
-            cout << n.toString() << endl;
 
             skV.push_back(n);
         }

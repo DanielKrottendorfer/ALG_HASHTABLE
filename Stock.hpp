@@ -26,6 +26,7 @@ public:
   int hash();
 
   string getName();
+  string getShortform();
   void setName(string n);
   void setValues(vector<StockValue> v);
   vector<StockValue> getValues();

@@ -29,6 +29,11 @@ void Stock::setName(string n)
     name = n;
 }
 
+string Stock::getShortform()
+{
+    return shortform;
+}
+
 //gibt alle Aktienwerte aus
 void Stock::printValues()
 {
